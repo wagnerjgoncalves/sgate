@@ -76,15 +76,29 @@ public class ClienteTest extends UnitTest {
 		
 		assertNotNull(savedCliente);
 		assertNotNull(savedCliente.endereco);
+		assertClientValues(savedCliente, "Alisson");
+	}
+	
+	@Test(expected = ValidationException.class)
+	public void shouldNotUpdateAnInvalidCliente() {
 		
-		assertEquals("Alisson", savedCliente.nome);
-		assertEquals("111.222.333-44", savedCliente.cpf);
-		assertEquals("MG-12-456-987", savedCliente.rg);
-		assertEquals("Joana maria", savedCliente.filiacao);
-		assertEquals("Rua Mathues 13", savedCliente.endereco.logradouro);
-		assertEquals(131, savedCliente.endereco.numero.intValue());
-		assertEquals("centro", savedCliente.endereco.bairro);
-		assertEquals("MG", savedCliente.endereco.uf);
-		assertEquals("37000-000", savedCliente.endereco.cep);
+		Cliente maria = Cliente.find("byNome", "Maria").first();
+		Cliente updatedClienteData = createCliente();
+		updatedClienteData.nome = null;
+		
+		maria.update(updatedClienteData);
+	}
+	
+	@Test
+	public void shouldUpdate() {
+		
+		Cliente maria = Cliente.find("byNome", "Maria").first();
+		Cliente updatedClienteData = createCliente();
+		updatedClienteData.nome = "Maria updated";
+		
+		maria.update(updatedClienteData);
+		
+		maria = Cliente.findById(maria.id);
+		assertClientValues(maria, "Maria updated");
 	}
 }

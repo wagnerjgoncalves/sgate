@@ -17,4 +17,15 @@ public class Endereco extends Model {
 	public String cidade;
 	public String uf;
 	public String cep;
+	
+	public void updateValues(Endereco endereco) {
+		
+		this.logradouro = endereco.logradouro;
+		this.numero = endereco.numero;
+		this.bairro = endereco.bairro;
+		this.complemento = endereco.complemento;
+		this.cidade = endereco.cidade;
+		this.uf = endereco.uf;
+		this.cep = endereco.cep;
+	}
 }
