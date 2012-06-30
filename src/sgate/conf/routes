@@ -3,8 +3,8 @@
 # ~~~~
 
 # Clientes
-POST    /clientes                               Clientes.create
-GET    /clientes/new                            staticFile:/app/views/client.html
+POST    /clientes                           Clientes.create
+#GET    /clientes/new                           staticFile:/public/client.html
 
 # Home page
 GET     /                                       Application.index

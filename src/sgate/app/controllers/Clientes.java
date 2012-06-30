@@ -17,7 +17,9 @@ public class Clientes extends Controller {
 			
 		} catch(Exception e) {
 			
+			e.printStackTrace();
 			response.status = 500;
+			
 		}
 	}
 }
