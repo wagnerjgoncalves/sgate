@@ -4,6 +4,7 @@
 
 # Clientes
 POST    /clientes                               Clientes.create
+GET    /clientes/new                            staticFile:/app/views/client.html
 
 # Home page
 GET     /                                       Application.index

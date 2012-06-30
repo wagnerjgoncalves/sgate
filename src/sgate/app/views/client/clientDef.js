@@ -15,7 +15,7 @@ Ext.define('Client',{
 
 	proxy: {
 		type: 'rest',
-		url: 'client',
+		url: 'clientes',
 		format: 'json'
 	}
 });
