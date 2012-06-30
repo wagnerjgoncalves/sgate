@@ -36,9 +36,7 @@ public class Cliente extends Model {
 	public String telcelular;
 	public String telfixo;
 	public String email;
-	
-	
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_endereco", referencedColumnName="id")
 	public Endereco endereco;
@@ -48,5 +46,6 @@ public class Cliente extends Model {
 		
 		ValidationUtil.validate(this);
 		return super.create();
-	}	
+	}
+	
 }
