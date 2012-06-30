@@ -5,6 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import exceptions.ValidationException;
+
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.ValidationUtil;
@@ -29,8 +31,21 @@ public class Plano extends Model {
 
 	@Override
 	public Plano save() {
-
-		ValidationUtil.validate(this);
+		validate();
 		return super.save();
+	}
+	
+	private  void validate() {
+		validateBandwith();
+		ValidationUtil.validate(this);
+	}
+	
+	private void validateBandwith() {
+		
+		if (this.tipo != null && this.tipo.equals(TipoPlano.find("byNome", "Internet").first()) && 
+			(this.banda == null || this.banda.trim().equals(""))) {
+			
+			throw new ValidationException("banda: this field is required for this type of plan.");
+		}
 	}
 }

@@ -58,4 +58,17 @@ public class PlanoTest extends UnitTest {
 		
 		plano.save();
 	}
+	
+	@Test(expected = ValidationException.class)
+	public void shouldNotCreateAnInternetPlanWithoutBandwith() {
+
+		Plano plano = new Plano();
+		plano.nome = "Internet a Vontade";
+		plano.descricao = "Internet de alta velocidade";
+		plano.preco = 50.0;
+		plano.tipo = TipoPlano.find("byNome", "Internet").first();
+		
+		plano.save();
+	}
+	
 }

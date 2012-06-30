@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 
 import models.Cliente;
@@ -21,5 +23,11 @@ public class Clientes extends Controller {
 			response.status = 500;
 			
 		}
+	}
+	
+	public static void list() {
+		
+		List<Cliente> clientes = Cliente.all().fetch();
+		renderJSON(clientes);
 	}
 }

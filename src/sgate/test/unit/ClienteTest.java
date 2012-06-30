@@ -1,5 +1,7 @@
 package unit;
 
+import java.util.List;
+
 import models.Cliente;
 import models.Endereco;
 
@@ -8,6 +10,7 @@ import org.junit.Test;
 
 import exceptions.ValidationException;
 
+import play.db.jpa.JPA;
 import play.test.Fixtures;
 import play.test.UnitTest;
 import util.DatabaseCleaner;
@@ -83,7 +86,5 @@ public class ClienteTest extends UnitTest {
 		assertEquals("centro", savedCliente.endereco.bairro);
 		assertEquals("MG", savedCliente.endereco.uf);
 		assertEquals("37000-000", savedCliente.endereco.cep);
-		
-		
 	}
 }
