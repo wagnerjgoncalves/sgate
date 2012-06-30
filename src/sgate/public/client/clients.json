@@ -1,0 +1,26 @@
+{ "clients":
+	 [
+		{
+			"id": "1",
+		    "nome": "Wagner J. Goncalves",
+		    "cpf": "060.085.226-13",
+		    "rg": "MG 12.456.742",
+		    "filiacao": "Tereza Dirce Goncalves",
+		    "telreferencia": "(35)99320664",
+		    "telfixo": "(35)99320664",
+		    "telcelular": "(35)99320664",
+		    "email": "wagnerjgoncalves@gmail.com"
+		},
+		{
+			"id": "2",
+		    "nome": "Douglas Barbosa Alexandre",
+		    "cpf": "244.244.244-24",
+		    "rg": "MG 12.456.742",
+		    "filiacao": "Tereza Dirce Goncalves",
+		    "telreferencia": "(35)99320664",
+		    "telfixo": "(35)99320664",
+		    "telcelular": "(35)99320664",
+		    "email": "wagnerjgoncalves@gmail.com"
+		}
+	]
+}
