@@ -1,0 +1,5 @@
+TipoPlano(internet):
+    nome: Internet
+
+TipoPlano(tv):
+    nome: TV
