@@ -37,8 +37,6 @@ public class Cliente extends Model {
 	public String telfixo;
 	public String email;
 	
-	
-	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_endereco", referencedColumnName="id")
 	public Endereco endereco;
