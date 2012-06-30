@@ -48,4 +48,18 @@ public class Clientes extends Controller {
 		List<Cliente> clientes = Cliente.all().fetch();
 		renderJSON(clientes);
 	}
+	
+	public static void show(Long id) {
+		
+		Cliente cliente  = Cliente.findById(id);
+		
+		if (cliente == null) {
+			
+			response.status = 500;
+			
+		} else {
+			
+			renderJSON(cliente);
+		}
+	}
 }

@@ -92,4 +92,25 @@ public class ClienteTest extends FunctionalTest {
 		Response response = POST("/clientes/" + joao.id, "application/json", new Gson().toJson(joao));
 		assertIsOk(response);
 	}
+	
+	@Test
+	public void shouldNotGetClienteToEditionWithInvalidId() {
+
+		Response response = GET("/clientes/" + 0);
+		assertStatus(500, response);
+	}
+	
+	@Test
+	public void shouldGetClienteToEdition() {
+		
+		Cliente antonio = Cliente.find("byNome", "Antonio").first();
+		
+		Response response = GET("/clientes/" + antonio.id);
+		assertIsOk(response);
+		
+		Cliente retrievedCliente = new Gson().fromJson(getContent(response), Cliente.class);
+		
+		assertEquals(antonio.id, retrievedCliente.id);
+		assertEquals(antonio.nome, retrievedCliente.nome);
+	}
 }
