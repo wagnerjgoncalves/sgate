@@ -3,7 +3,8 @@
 # ~~~~
 
 # Clientes
-POST    /clientes                           Clientes.create
+POST    /clientes                               Clientes.create
+GET     /clientes                               Clientes.list
 #GET    /clientes/new                           staticFile:/public/client.html
 
 # Home page

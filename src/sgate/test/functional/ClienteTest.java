@@ -1,5 +1,7 @@
 package functional;
 
+import java.util.List;
+
 import models.Cliente;
 import models.Endereco;
 
@@ -35,4 +37,15 @@ public class ClienteTest extends FunctionalTest {
 		assertIsOk(response);
 	}
 
+	@Test
+	public void shouldList() {
+		
+		Long clientesCount = Cliente.count();
+		Response response = GET("/clientes");
+		assertIsOk(response);
+		
+		Cliente [] clientes = new Gson().fromJson(getContent(response), (new Cliente [0]).getClass());
+		
+		assertEquals(clientesCount.intValue(), clientes.length);
+	}
 }
