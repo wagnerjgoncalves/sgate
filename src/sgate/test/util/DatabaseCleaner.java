@@ -9,6 +9,8 @@ public class DatabaseCleaner {
 	public static void cleanUp() {
 
 		Fixtures.delete(Cliente.class,
-						Endereco.class);
+						Endereco.class,
+						Plano.class,
+						TipoPlano.class);
 	}
 }
