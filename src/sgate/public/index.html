@@ -1,0 +1,58 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<link rel="stylesheet" type="text/css" href="javascripts/extjs/resources/css/ext-all.css">
+	<script type="text/javascript" src="javascripts/extjs/ext-all.js" ></script>
+	<script type="text/javascript" src="client/clientDef.js" ></script>
+	<title>sgate</title>
+</head>
+<body>
+
+</body>
+
+	<script type="text/javascript">
+
+		Ext.onReady(function(){
+
+			Ext.require([
+   			 'Ext.grid.*',
+    		 'Ext.data.*',
+    		 'Ext.panel.*',
+    		 'Cliente'
+			]);
+
+
+			var toolbar = Ext.create('Ext.toolbar.Toolbar', {
+			    renderTo: Ext.getBody(),
+			    width   : 600,
+			    items   : [
+			        {
+			            text   : 'Listar Clientes',
+			            handler: function(){
+			            	form.setVisible(false);
+			            	listView.setVisible(true);
+			            	clientStore.load();
+
+			            }
+			        },{
+			            text   : 'Novo Cliente',
+			            handler: function(){
+			            	listView.setVisible(false);
+			            	form.setVisible(true);
+			            	
+			            }
+			        }
+			       ]
+			});
+
+			var listView = getListClients();
+			var form = 	newClientForm();
+
+			listView.setVisible(false);				
+			form.setVisible(false);
+
+		});
+
+	</script>
+
+</html>
