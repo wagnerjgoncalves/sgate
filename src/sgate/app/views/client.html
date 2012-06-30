@@ -3,6 +3,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 	<link rel="stylesheet" type="text/css" href="../../public/javascripts/extjs/resources/css/ext-all.css">
 	<script type="text/javascript" src="../../public/javascripts/extjs/ext-all.js" ></script>
+	<script type="text/javascript" src="clients/clientDef.js" ></script>
 	<title>New Client</title>
 </head>
 <body>
@@ -10,23 +11,6 @@
 </body>
 
 	<script type="text/javascript">
-
-		Ext.define('Client',{
-			extend: 'Ext.data.Model',
-
-			fields: [
-				{id: 'id', type: 'int'},
-				{name: 'name', type: 'string'},
-				{name: 'cpf', type: 'string'},
-				{name: 'rg', type: 'string'}
-			],
-
-			proxy: {
-				type: 'rest',
-				url: 'clients',
-				format: 'json'
-			}
-		});
 
 
 		Ext.onReady(function(){
