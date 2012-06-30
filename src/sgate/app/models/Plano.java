@@ -5,11 +5,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import exceptions.ValidationException;
-
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.ValidationUtil;
+import exceptions.ValidationException;
 
 @Entity
 @Table(name = "planos", schema = "sgate")
@@ -28,6 +27,17 @@ public class Plano extends Model {
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_plano", referencedColumnName = "id")
 	public TipoPlano tipo;
+	
+	public void update(Plano plano) {
+		
+		this.nome = plano.nome;
+		this.descricao = plano.descricao;
+		this.preco = plano.preco;
+		this.banda = plano.banda;
+		this.tipo = plano.tipo;
+		
+		this.save();
+	}
 
 	@Override
 	public Plano save() {

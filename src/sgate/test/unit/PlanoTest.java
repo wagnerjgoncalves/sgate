@@ -15,7 +15,6 @@ import util.DatabaseCleaner;
 
 public class PlanoTest extends UnitTest {
 
-	
 	@BeforeClass
 	public static void setup() {
 		DatabaseCleaner.cleanUp();
@@ -25,36 +24,26 @@ public class PlanoTest extends UnitTest {
 	@Test
 	public void shouldCreateAValidPlan() {
 		
-		Plano plano = new Plano();
-		plano.nome = "Internet a Vontade";
-		plano.descricao = "Internet de alta velocidade";
-		plano.preco = 50.0;
-		plano.tipo = TipoPlano.find("byNome", "Internet").first();
-		plano.banda = "2MB";
-		
+		TipoPlano internet = TipoPlano.find("byNome", "Internet").first();
+		Plano plano = createPlan(internet);
 		plano.save();
 	}
 	
 	@Test(expected = ValidationException.class)
 	public void shouldNotCreateAPlanWithoutName() {
 
-		Plano plano = new Plano();
-		plano.descricao = "Internet de alta velocidade";
-		plano.preco = 50.0;
-		plano.tipo = TipoPlano.find("byNome", "Internet").first();
-		plano.banda = "2MB";
-		
+		TipoPlano internet = TipoPlano.find("byNome", "Internet").first();
+		Plano plano = createPlan(internet);
+		plano.nome = null;
 		plano.save();
 	}
 	
 	@Test(expected = ValidationException.class)
 	public void shouldNotCreateAPlanWithoutPrice() {
 
-		Plano plano = new Plano();
-		plano.nome = "Internet a Vontade";
-		plano.descricao = "Internet de alta velocidade";
-		plano.tipo = TipoPlano.find("byNome", "Internet").first();
-		plano.banda = "2MB";
+		TipoPlano internet = TipoPlano.find("byNome", "Internet").first();
+		Plano plano = createPlan(internet);
+		plano.preco = null;
 		
 		plano.save();
 	}
@@ -62,13 +51,56 @@ public class PlanoTest extends UnitTest {
 	@Test(expected = ValidationException.class)
 	public void shouldNotCreateAnInternetPlanWithoutBandwith() {
 
+		TipoPlano internet = TipoPlano.find("byNome", "Internet").first();
+		Plano plano = createPlan(internet);
+		plano.banda = null;
+		
+		plano.save();
+	}
+	
+	@Test
+	public void shouldCreateAnTVPlanWithoutBandwith() {
+		
+		TipoPlano tv = TipoPlano.find("byNome", "TV").first();
+		Plano plano = createPlan(tv);
+		plano.banda = null;
+		plano.save();
+	}
+	
+	@Test
+	public void shouldUpdateAValidPlan() {
+		
+		TipoPlano internet = TipoPlano.find("byNome", "Internet").first();
+		Plano updated = createPlan(internet);
+		updated.nome = "Ilimitado 1";
+		
+		Plano curent = Plano.find("byNome", "Ilimitado 1").first();
+		curent.update(updated);
+		
+		assertEquals(updated.descricao, curent.descricao);
+	}
+	
+	@Test(expected = ValidationException.class)
+	public void shouldNotUpdateAInvalidPlan() {
+		
+		TipoPlano internet = TipoPlano.find("byNome", "Internet").first();
+		Plano updated = createPlan(internet);
+		updated.nome = null;
+		
+		Plano curent = Plano.find("byNome", "Ilimitado 1").first();
+		curent.update(updated);
+	}
+	
+	private Plano createPlan(TipoPlano tipo) {
+		
 		Plano plano = new Plano();
 		plano.nome = "Internet a Vontade";
 		plano.descricao = "Internet de alta velocidade";
 		plano.preco = 50.0;
-		plano.tipo = TipoPlano.find("byNome", "Internet").first();
+		plano.tipo = tipo;
+		plano.banda = "2MB";
 		
-		plano.save();
+		return plano;
 	}
 	
 }

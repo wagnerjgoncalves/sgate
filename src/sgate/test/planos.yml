@@ -3,3 +3,10 @@ TipoPlano(internet):
 
 TipoPlano(tv):
     nome: TV
+
+Plano(ilimitado1):
+    nome: Ilimitado 1
+    descricao: Navegue a vontade
+    preco: 50.0
+    tipo: internet
+    banda: 5Mb

@@ -6,6 +6,11 @@
 POST    /clientes                           Clientes.create
 #GET    /clientes/new                           staticFile:/public/client.html
 
+# Planos
+POST	/planos								Planos.create
+GET     /planos/{id}                        Planos.edit
+POST    /planos/{id}                        Planos.update
+
 # Home page
 GET     /                                       Application.index
 
