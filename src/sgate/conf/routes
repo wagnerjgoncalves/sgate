@@ -4,7 +4,7 @@
 
 # Clientes
 POST    /clientes                               Clientes.create
-POST    /clientes/{id}                          Clientes.update
+PUT     /clientes/{id}                          Clientes.update
 GET     /clientes/{id}                          Clientes.show
 GET     /clientes                               Clientes.list
 DELETE  /clientes/{id}                          Clientes.delete
@@ -12,7 +12,7 @@ DELETE  /clientes/{id}                          Clientes.delete
 # Planos
 POST	/planos								Planos.create
 GET     /planos/{id}                        Planos.edit
-POST    /planos/{id}                        Planos.update
+PUT     /planos/{id}                        Planos.update
 GET     /planos                             Planos.list
 DELETE  /planos/{id}                        Planos.delete
 
