@@ -45,11 +45,21 @@
              ]
       });
 
-      var listView = getListPlanos();
-      var form =  newPlanoForm();
+      var updatePlano = function(plano){
+        form.setVisible(true);
+        listView.setVisible(false);
+        form.getForm().setValues(plano.data);
+      };
+
+      var listView = getListPlanos( updatePlano );
+      var form =  newPlanoForm( null, listView );
 
       listView.setVisible(false);       
       form.setVisible(false);
+
+      listView.setVisible(true);        
+      form.setVisible(false);
+      planosStore.load();
 
     });
 

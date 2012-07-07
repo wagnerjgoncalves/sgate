@@ -30,7 +30,7 @@ var planosStore = Ext.create('Ext.data.JsonStore', {
     }
 });
 
-var getListPlanos  = function(){
+var getListPlanos  = function(updatePlano){
 
   var listView = Ext.create('Ext.grid.Panel', {
     width:600,
@@ -70,6 +70,38 @@ var getListPlanos  = function(){
             text: 'Banda',
             flex: 50,
             dataIndex: 'banda'
+        },
+         {
+            text: 'Opções',
+            xtype:'actioncolumn',
+            width:50,
+            items: [
+            { 
+                icon: 'http://www.townmountain.net/images/edit-button.jpg',
+                tooltip: 'Editar',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    Plano.load( rec.get("id") , {
+                                  success: function(p) {
+                                     updatePlano(p);
+                                 }
+                    });
+                }
+            },
+            {
+
+                icon: 'http://www.ufscar.br/~ccet/novo/delete.gif',
+                tooltip: 'Excluir',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    Plano.load( rec.get("id") , {
+                                  success: function(p) {
+                                     p.destroy();
+                                     planosStore.load();
+                                 }
+                    });
+                }
+            }]
         }
     ]
   }); 
@@ -78,8 +110,8 @@ var getListPlanos  = function(){
 
 };
 
-var newPlanoForm = function(){
-  var plano = Ext.create("Plano", {});
+var newPlanoForm = function(plano, listView){
+  plano = plano || Ext.create("Plano", {});
   var form = Ext.create('Ext.form.Panel', {
       title: 'Plano',
       bodyPadding: 5,
@@ -91,7 +123,13 @@ var newPlanoForm = function(){
       },
 
       defaultType: 'textfield',
-      items: [{
+      items: [
+         {
+            fieldLabel: 'Id',
+            name: 'id',
+            xtype: 'hiddenfield'
+        },
+        {
           fieldLabel: 'Nome',
           name: 'nome',
           allowBlank: false
@@ -132,9 +170,14 @@ var newPlanoForm = function(){
                     id: 1,
                     nome: 'Internet'
                 };
-                plano.set('id', null);
+
                 plano.set('tipo', tipo);
-            plano.save();
+                plano.save();
+
+                form.setVisible(false);
+                listView.setVisible(true);
+                planosStore.load();
+                form.getForm().reset();
           }
         }
 

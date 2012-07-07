@@ -51,7 +51,7 @@ var clientStore = Ext.create('Ext.data.JsonStore', {
     }
 });
 
-var getListClients  = function(){
+var getListClients  = function( updateCliente ){
 
 	var listView = Ext.create('Ext.grid.Panel', {
     width:600,
@@ -91,6 +91,36 @@ var getListClients  = function(){
             text: 'Telefone Celular',
             flex: 50,
             dataIndex: 'telcelular'
+        },
+        {
+            text: 'Opções',
+            xtype:'actioncolumn',
+            width:50,
+            items: [
+            { 
+                icon: 'http://www.townmountain.net/images/edit-button.jpg',
+                tooltip: 'Editar',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    Cliente.load( rec.get("id") , {
+                                  success: function(c) {
+                                     updateCliente(c);
+                                 }
+                    });
+                }
+            },{
+                icon: 'http://www.ufscar.br/~ccet/novo/delete.gif',
+                tooltip: 'Excluir',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    Cliente.load( rec.get("id") , {
+                                  success: function(c) {
+                                     c.destroy();
+                                     clientStore.load();
+                                 }
+                    });
+                }
+            }]
         }
     ]
 	});	
@@ -99,8 +129,8 @@ var getListClients  = function(){
 
 };
 
-var newClientForm = function(){
-	var cliente = Ext.create("Cliente", {});
+var newClientForm = function(cliente, listView){
+	cliente = cliente || Ext.create("Cliente", {});
 	var form = Ext.create('Ext.form.Panel', {
 	    title: 'Cliente',
 	    bodyPadding: 5,
@@ -112,7 +142,13 @@ var newClientForm = function(){
 	    },
 
 	    defaultType: 'textfield',
-	    items: [{
+	    items: [
+        {
+            fieldLabel: 'Id',
+            name: 'id',
+            xtype: 'hiddenfield'
+        },
+        {
         	fieldLabel: 'Nome',
         	name: 'nome',
         	allowBlank: false
@@ -179,10 +215,14 @@ var newClientForm = function(){
                     uf: 'mg',
                     cep: '37200000'
                 };
-                client.set('id', null);
+
                 client.set('endereco', endereco);
-                console.log(client);
         		client.save();
+
+                form.setVisible(false);
+                listView.setVisible(true);
+                clientStore.load();
+                form.getForm().reset();
         	}
         }
 

@@ -40,17 +40,26 @@
 			            handler: function(){
 			            	listView.setVisible(false);
 			            	form.setVisible(true);
-			            	
 			            }
 			        }
 			       ]
 			});
 
-			var listView = getListClients();
-			var form = 	newClientForm();
 
-			listView.setVisible(false);				
+			var updateCliente = function(cliente){
+				form.setVisible(true);
+				listView.setVisible(false);
+				form.getForm().setValues(cliente.data);
+			};
+
+			var listView = getListClients( updateCliente );
+			var form = 	newClientForm( null, listView );
+
+			listView.setVisible(true);				
 			form.setVisible(false);
+			clientStore.load();
+
+			
 
 		});
 
