@@ -7,7 +7,7 @@ POST    /clientes                               Clientes.create
 POST    /clientes/{id}                          Clientes.update
 GET     /clientes/{id}                          Clientes.show
 GET     /clientes                               Clientes.list
-#GET    /clientes/new                           staticFile:/public/client.html
+DELETE  /clientes/{id}                          Clientes.delete
 
 # Planos
 POST	/planos								Planos.create
