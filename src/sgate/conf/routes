@@ -14,6 +14,7 @@ POST	/planos								Planos.create
 GET     /planos/{id}                        Planos.edit
 POST    /planos/{id}                        Planos.update
 GET     /planos                             Planos.list
+DELETE  /planos/{id}                        Planos.delete
 
 # Home page
 GET     /                                       Application.index

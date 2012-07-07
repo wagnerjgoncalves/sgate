@@ -56,4 +56,14 @@ public class Planos extends DefaultController {
 			response.status = 500;
 		}
 	}
+	
+	public static void delete(Long id) {
+		
+		Plano plano = Plano.findById(id);
+		returnIfNotFound(plano);
+		
+		plano.delete();
+		
+		renderJSON("Plano excluído com sucesso");
+	}
 }
