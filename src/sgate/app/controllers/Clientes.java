@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import models.Cliente;
 import play.mvc.Controller;
 
-public class Clientes extends Controller {
+public class Clientes extends DefaultController {
 
 	
 	public static void create() {
@@ -57,5 +57,15 @@ public class Clientes extends Controller {
 			
 			renderJSON(cliente);
 		}
+	}
+	
+	public static void delete(Long id) {
+		
+		Cliente cliente = Cliente.findById(id);
+		returnIfNotFound(cliente);
+		
+		cliente.delete();
+		
+		renderJSON("Cliente excluído com sucesso");
 	}
 }
