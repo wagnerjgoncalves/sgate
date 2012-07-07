@@ -20,7 +20,7 @@ public class Clientes extends Controller {
 
 		try {
 			
-			cliente.create();
+			cliente.save();
 			
 		} catch(Exception e) {
 			
