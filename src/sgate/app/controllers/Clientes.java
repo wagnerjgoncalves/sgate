@@ -2,14 +2,10 @@ package controllers;
 
 import java.util.List;
 
-import org.junit.BeforeClass;
-
 import com.google.gson.Gson;
 
 import models.Cliente;
 import play.mvc.Controller;
-import play.test.Fixtures;
-import util.DatabaseCleaner;
 
 public class Clientes extends Controller {
 

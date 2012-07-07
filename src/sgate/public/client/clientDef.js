@@ -1,8 +1,26 @@
+Ext.define('Endereco',{
+    
+    extend: 'Ext.data.Model',
+
+    fields: [
+        {name: 'id', type: 'int'},
+        {name: 'logradouro', type: 'string'},
+        {name: 'numero', type: 'int'},
+        {name: 'bairro', type: 'String'},
+        {name: 'complemento', type: 'string'},
+        {name: 'cidade', type: 'string'},
+        {name: 'uf', type: 'string'},
+        {name: 'cep', type: 'string'}
+    ]
+
+});
+
 Ext.define('Cliente',{
-	extend: 'Ext.data.Model',
+	
+    extend: 'Ext.data.Model',
 
 	fields: [
-		{name: 'id', type: 'int'},
+		{name: 'id', type: 'int', useNull: true},
 		{name: 'nome', type: 'string'},
 		{name: 'cpf', type: 'string'},
 		{name: 'rg', type: 'string'},
@@ -10,20 +28,22 @@ Ext.define('Cliente',{
 		{name: 'telreferencia', type: 'string'},
 		{name: 'telfixo', type: 'string'},
 		{name: 'telcelular', type: 'string'},
-		{name: 'email', type: 'string'}
+		{name: 'email', type: 'string'},
+        {name: 'endereco', type: 'object'}
 	],
 
 	proxy: {
 		type: 'rest',
 		url: '/clientes'
 	}
+
 });
 
 var clientStore = Ext.create('Ext.data.JsonStore', {
     model: 'Cliente',
     proxy: {
         type: 'ajax',
-        url: 'client/clients.json',
+        url: '/clientes',
         reader: {
             type: 'json',
             root: 'clients'
@@ -80,11 +100,11 @@ var getListClients  = function(){
 };
 
 var newClientForm = function(){
+	var cliente = Ext.create("Cliente", {});
 	var form = Ext.create('Ext.form.Panel', {
 	    title: 'Cliente',
 	    bodyPadding: 5,
 	    width: 600,
-	    url: "/clientes",
 	    layout: 'anchor',
 	    
 	    defaults: {
@@ -136,16 +156,32 @@ var newClientForm = function(){
 
     	buttons:[
     	{
-        	text: 'Cancelar'
+        	text: 'Cancelar',
+        	handler: function(){
+        		form.getForm.reset();
+        	}
+
         },
         {
     		text: 'Salvar',
         	formBind: true, 
         	disabled: true,
         	handler: function() {
-        		
         		form.getForm().updateRecord(cliente);
         		client = Ext.create("Cliente", cliente.data);
+                var endereco = {
+                    id: null,
+                    logradouro: 'Novo',
+                    numero: 1,
+                    bairro: 'Lavrinhas',
+                    complemento: 'casa',
+                    cidade: 'Lavras',
+                    uf: 'mg',
+                    cep: '37200000'
+                };
+                client.set('id', null);
+                client.set('endereco', endereco);
+                console.log(client);
         		client.save();
         	}
         }

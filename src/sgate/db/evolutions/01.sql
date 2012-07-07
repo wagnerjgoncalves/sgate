@@ -26,7 +26,7 @@ CREATE TABLE "sgate"."cliente" (
     "filiacao" text NOT NULL,
     "telcelular" text NULL,
     "telfixo" text NULL,
-    "telrefencia" text NOT NULL,
+    "telreferencia" text NOT NULL,
     "email" text NULL,
     "id_endereco" int4 NOT NULL REFERENCES "sgate"."endereco"("id"),
     PRIMARY KEY ("id")

@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import models.Plano;
 import play.mvc.Controller;
 
@@ -20,6 +22,12 @@ public class Planos extends DefaultController {
 			e.printStackTrace();
 			response.status = 500;
 		}
+	}
+
+	public static void list() {
+		
+		List<Plano> planos = Plano.findAll();
+		renderJSON(planos);
 	}
 	
 	public static void edit(Long id) {
