@@ -1,0 +1,25 @@
+Endereco(endereco1):
+    logradouro: Rua comendador jose esteves
+    numero: 106
+    bairro: centro
+    cidade: Lavras
+    uf: MG
+    cep: 37200-000
+
+Cliente(cliente1):
+    nome: Joao
+    cpf: 00000000001
+    rg: MG-00000001
+    filiacao: Maria das Gracas
+    telreferencia: 3538214050
+    endereco: endereco1
+    
+TipoPlano(internet):
+    nome: Internet
+
+Plano(ilimitado1):
+    nome: Ilimitado
+    descricao: Navegue a vontade
+    preco: 50.0
+    tipo: internet
+    banda: 5Mb
