@@ -1,6 +1,6 @@
 Ext.define('Plano',{
   
-    extend: 'Ext.data.Model',
+  extend: 'Ext.data.Model',
 
   fields: [
     {name: 'id', type: 'int', useNull: true},
@@ -9,6 +9,22 @@ Ext.define('Plano',{
     {name: 'preco', type: 'numeric'},
     {name: 'banda', type: 'string'},
     {name: 'tipo', type: 'object'}
+  ],
+
+  proxy: {
+    type: 'rest',
+    url: '/planos'
+  }
+
+});
+
+Ext.define('TipoPlano',{
+  
+  extend: 'Ext.data.Model',
+
+  fields: [
+    {name: 'id', type: 'int', useNull: true},
+    {name: 'nome', type: 'string'}
   ],
 
   proxy: {
@@ -29,6 +45,20 @@ var planosStore = Ext.create('Ext.data.JsonStore', {
         }
     }
 });
+
+ var tipoPlanosStore = Ext.create('Ext.data.JsonStore', {
+      model: 'TipoPlano',
+      proxy: {
+          type: 'ajax',
+          url: '/tipoplanos',
+          reader: {
+              type: 'json',
+              root: 'tipoplanos'
+          }
+      }
+});
+
+tipoPlanosStore.load();
 
 var getListPlanos  = function(updatePlano){
 
@@ -70,6 +100,14 @@ var getListPlanos  = function(updatePlano){
             text: 'Banda',
             flex: 50,
             dataIndex: 'banda'
+        },
+        {
+            text: 'Tipo',
+            flex: 50,
+            dataIndex: 'tipo',
+            renderer: function(value) {
+              return value.nome;
+            }
         },
          {
             text: 'Opções',
@@ -148,6 +186,14 @@ var newPlanoForm = function(plano, listView){
           fieldLabel: 'Banda',
           name: "banda",
           allowBlank: false
+      },
+      {
+        fieldLabel: 'Tipo',
+        name: 'tipo',
+        xtype: 'combo',
+        valueField: 'id',
+        displayField: 'nome',
+        store: tipoPlanosStore
       }
       ],
 
@@ -165,11 +211,13 @@ var newPlanoForm = function(plano, listView){
           disabled: true,
           handler: function() {
             form.getForm().updateRecord(plano);
-            plano = Ext.create("Plano", plano.data);
-                var tipo = {
-                    id: 1,
-                    nome: 'Internet'
-                };
+
+            var tipo = {
+                id: plano.data.tipo
+            };
+            
+
+            plano = Ext.create("Plano", plano.data);                
 
                 plano.set('tipo', tipo);
                 plano.save();

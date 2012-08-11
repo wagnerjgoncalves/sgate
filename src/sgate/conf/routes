@@ -19,6 +19,9 @@ DELETE  /planos/{id}                            Planos.delete
 # Vendas
 POST    /vendas                                 Vendas.create 
 
+#Tipo Plano
+GET     /tipoplanos                             TipoPlanos.list
+
 # Home page
 GET     /                                       Application.index
 
