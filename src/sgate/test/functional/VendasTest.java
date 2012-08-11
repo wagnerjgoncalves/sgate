@@ -36,6 +36,7 @@ public class VendasTest extends FunctionalTest {
 		
 		Venda venda = createVenda();
 		venda.plano = null;
+		System.out.println(new Gson().toJson(venda));
 		assertStatus(500, POST("/vendas", "application/json", new Gson().toJson(venda)));
 	}
 	
