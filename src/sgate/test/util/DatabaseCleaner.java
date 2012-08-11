@@ -8,7 +8,8 @@ public class DatabaseCleaner {
 
 	public static void cleanUp() {
 
-		Fixtures.delete(Cliente.class,
+		Fixtures.delete(Venda.class,
+					    Cliente.class,
 						Endereco.class,
 						Plano.class,
 						TipoPlano.class);
