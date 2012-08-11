@@ -23,3 +23,5 @@ WITH (OIDS=FALSE);
  
 DROP TABLE "sgate"."planos";
 DROP TABLE "sgate"."tipos_planos";
+
+
