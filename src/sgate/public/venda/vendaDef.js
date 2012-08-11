@@ -122,7 +122,8 @@ var newVendaForm = function(venda, listView){
         {
           fieldLabel: 'Data',
           name: 'data',
-          xtype: 'datefield'
+          xtype: 'datefield',
+          format: 'M d, Y h:i:s A'
         },
         {
           fieldLabel: 'Cliente',
@@ -183,20 +184,19 @@ var newVendaForm = function(venda, listView){
                 id: venda.data.plano
             };
 
-            venda = Ext.create("Venda", venda.data);                
+            var data = venda.data.data;
+
+            venda = Ext.create("Venda", venda.data);               
 
                 venda.set('plano', plano);
                 venda.set('cliente', cliente);
-
-                venda.set('valor', 10);
-                venda.set('desconto', 1);
-                venda.set('total', 9);
-               
+                venda.set('data', Ext.Date.format( data, 'M d, Y h:i:s A' ));
+             
                 venda.save();
                
                 form.setVisible(false);
                 listView.setVisible(true);
-                vendassStore.load();
+                vendasStore.load();
                 form.getForm().reset();
           }
         }
