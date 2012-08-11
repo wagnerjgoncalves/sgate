@@ -194,7 +194,8 @@ var newPlanoForm = function(plano, listView){
         valueField: 'id',
         displayField: 'nome',
         store: tipoPlanosStore
-      }],
+      }
+      ],
 
       buttons:[
       {

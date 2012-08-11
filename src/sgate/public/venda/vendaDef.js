@@ -4,7 +4,8 @@ Ext.define('Venda',{
 
   fields: [
     {name: 'id', type: 'int', useNull: true},
-    {name: 'nome', type: 'string'},
+    {name: 'plano', type: 'object'},
+    {name: 'cliente', type: 'object'},
     {name: 'data', type: 'auto'},
     {name: 'valor', type: 'auto'},
     {name: 'desconto', type: 'auto'},
@@ -52,10 +53,6 @@ var getListVendas  = function(updateVenda){
           text: 'Identificador',
             flex: 50,
             dataIndex: 'id'
-        },{
-            text: 'Nome',
-            flex: 50,
-            dataIndex: 'nome'
         },
         {
           text: 'Data',
@@ -118,14 +115,9 @@ var newVendaForm = function(venda, listView){
       defaultType: 'textfield',
       items: [
          {
-            fieldLabel: 'Id',
-            name: 'id',
-            xtype: 'hiddenfield'
-        },
-        {
-          fieldLabel: 'Nome',
-          name: 'nome',
-          allowBlank: false
+          fieldLabel: 'Id',
+          name: 'id',
+          xtype: 'hiddenfield'
         },
         {
           fieldLabel: 'Data',
@@ -133,10 +125,27 @@ var newVendaForm = function(venda, listView){
           xtype: 'datefield'
         },
         {
+          fieldLabel: 'Cliente',
+          name: 'cliente',
+          xtype: 'combo',
+          valueField: 'id',
+          displayField: 'nome',
+          store: clientStore
+        },
+        {
+          fieldLabel: 'Plano',
+          name: 'plano',
+          xtype: 'combo',
+          valueField: 'id',
+          displayField: 'nome',
+          store: planosStore
+        },
+        
+        {
+          id: 'valor',
           fieldLabel: 'Valor',
           name: 'valor',
-          allowBlank: false,
-          xtype: 'displayfield'
+          allowBlank: false
         },
         {
           fieldLabel: 'Desconto',
@@ -163,9 +172,28 @@ var newVendaForm = function(venda, listView){
           formBind: true, 
           disabled: true,
           handler: function() {
+
             form.getForm().updateRecord(venda);
+
+             var cliente = {
+                id: venda.data.cliente
+            };
+
+            var plano = {
+                id: venda.data.plano
+            };
+
             venda = Ext.create("Venda", venda.data);                
+
+                venda.set('plano', plano);
+                venda.set('cliente', cliente);
+
+                venda.set('valor', 10);
+                venda.set('desconto', 1);
+                venda.set('total', 9);
+               
                 venda.save();
+               
                 form.setVisible(false);
                 listView.setVisible(true);
                 vendassStore.load();
