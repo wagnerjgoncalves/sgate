@@ -3,6 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
   <link rel="stylesheet" type="text/css" href="javascripts/extjs/resources/css/ext-all.css">
   <script type="text/javascript" src="javascripts/extjs/ext-all.js" ></script>
+  <script type="text/javascript" src="venda/vendaDef.js" ></script>
   <script type="text/javascript" src="plano/planoDef.js" ></script>
   <title>sgate</title>
 </head>
@@ -18,8 +19,7 @@
          'Ext.grid.*',
          'Ext.data.*',
          'Ext.panel.*',
-         'Plano',
-         'TipoPlano'
+         'Venda'
       ]);
 
       var toolbar = Ext.create('Ext.toolbar.Toolbar', {
@@ -27,15 +27,15 @@
           width   : 600,
           items   : [
               {
-                  text   : 'Listar Planos',
+                  text   : 'Listar Venda',
                   handler: function(){
                     form.setVisible(false);
                     listView.setVisible(true);
-                    planosStore.load();
+                    vendasStore.load();
 
                   }
               },{
-                  text   : 'Novo Plano',
+                  text   : 'Nova Venda',
                   handler: function(){
                     listView.setVisible(false);
                     form.setVisible(true);
@@ -45,21 +45,21 @@
              ]
       });
 
-      var updatePlano = function(plano){
+      var updateVenda = function(venda){
         form.setVisible(true);
         listView.setVisible(false);
-        form.getForm().setValues(plano.data);
+        form.getForm().setValues(venda.data);
       };
 
-      var listView = getListPlanos( updatePlano );
-      var form =  newPlanoForm( null, listView );
+      var listView = getListVendas( updateVenda );
+      var form =  newVendaForm( null, listView );
 
       listView.setVisible(false);       
       form.setVisible(false);
 
       listView.setVisible(true);        
       form.setVisible(false);
-      planosStore.load();
+      vendasStore.load();
 
     });
 

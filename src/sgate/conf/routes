@@ -16,6 +16,9 @@ PUT     /planos/{id}                        Planos.update
 GET     /planos                             Planos.list
 DELETE  /planos/{id}                        Planos.delete
 
+#Tipo Plano
+GET     /tipoplanos                             TipoPlanos.list
+
 # Home page
 GET     /                                       Application.index
 
